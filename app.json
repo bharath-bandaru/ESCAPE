@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "ESCAPE",
+    "slug": "ESCAPE",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "ESCAPE"
+}
