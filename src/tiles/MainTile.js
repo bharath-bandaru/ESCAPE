@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const MainTile = (props) => {
-  console.log("main",{width: props.tileWidth*2-10,height: props.tileWidth*2-10})
-  console.log("board width",props.width)
+  // console.log("main",{width: props.tileWidth*2-10,height: props.tileWidth*2-10})
+  // console.log("board width",props.width)
   const handlePress = () => {
     console.log('Main pressed!');
   };

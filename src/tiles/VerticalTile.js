@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 const VerticalTile = (props) => {
-  console.log("vert",{width: props.tileWidth-10,height: props.tileWidth*2-10})
-  console.log("board width",props.width)
+  // console.log("vert",{width: props.tileWidth-10,height: props.tileWidth*2-10})
+  // console.log("board width",props.width)
   const handlePress = () => {
     console.log('Vertical pressed!');
   };

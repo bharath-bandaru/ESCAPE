@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 const SmallTile = (props) => {
-  console.log("small",{width: props.tileWidth,height: props.tileWidth})
-  console.log("board width",props.width)
+  // console.log("small",{width: props.tileWidth,height: props.tileWidth})
+  // console.log("board width",props.width)
   const handlePress = () => {
     console.log('Small pressed!');
   };

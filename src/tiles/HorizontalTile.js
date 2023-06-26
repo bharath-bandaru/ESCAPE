@@ -3,8 +3,8 @@ import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { TouchableOpacity } from 'react-native-web';
 
 const HorizontalTile = (props) => {
-  console.log("hori",{width: props.tileWidth-10,height: props.tileWidth-10})
-  console.log("board width",props.width)
+  // console.log("hori",{width: props.tileWidth-10,height: props.tileWidth-10})
+  // console.log("board width",props.width)
   const handlePress = () => {
     console.log('Hori pressed!');
   };

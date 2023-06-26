@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React, { useState, useRef, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, Animated, Easing } from 'react-native';
 import Board from './src/Board';
 import EscapeImage from './assets/ESCAPE.svg'
 import AvatarImage from './assets/avatar.png'
@@ -10,9 +10,9 @@ export default function App() {
     [{ type: 'v', pRow: 0, pCol: 0 }, { type: 'm',  pRow: 0, pCol: 1  }, { type: 'm',  pRow: 0, pCol: 1 }, { type: 'v', pRow: 0, pCol: 3 }],
     [{ type: 'empty' }, { type: 'horizontal' }, { type: 'h',  pRow: 2, pCol: 1 }, { type: 'empty' }],
     [{ type: 'vertical' }, { type: 'small'}, { type: 'small'}, { type: 'vertical' }],
-    [{ type: 'v', pRow: 0, pCol: 0 }, {type: 'small' }, { type: 'small' }, { type: 'v', pRow: 0, pCol: 0 }]
+    [{ type: 'v', pRow: 3, pCol: 0 }, {type: 'small' }, { type: 'small' }, { type: 'v', pRow: 3, pCol: 3 }]
   ]);
-
+  const [numberOfMoves, setNumberOfMoves] = useState(0)
   const updateVerticalTileOnSwipe = (direction, rowIndex, colIndex) => {
     // This method takes care of vertical tile
     switch (direction) {
@@ -20,6 +20,7 @@ export default function App() {
         if (colIndex === 0 || board[rowIndex][colIndex - 1]['type'] !== "empty" || board[rowIndex+1][colIndex - 1]['type'] !== "empty") {
           return;
         } else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile left in board and just update the board
           const updatedBoard = [...board];
           // Move the tile left
@@ -35,6 +36,7 @@ export default function App() {
         if (colIndex === 3 || board[rowIndex][colIndex + 1]['type'] !== "empty" || board[rowIndex+1][colIndex + 1]['type'] !== "empty") {
           return;
         } else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile right in board and just update the board
           const updatedBoard = [...board];
           // Move the tile right
@@ -50,6 +52,7 @@ export default function App() {
         if (rowIndex == 0 || board[rowIndex-1][colIndex]['type'] != 'empty' ){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex-1][colIndex] = {type: 'vertical'};
           updatedBoard[rowIndex][colIndex] = {type: 'v', pRow: rowIndex-1, pCol: colIndex};
@@ -61,6 +64,7 @@ export default function App() {
         if (rowIndex == 3 || board[rowIndex+2][colIndex]['type'] != 'empty' ){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex][colIndex] = {type: 'empty'};
           updatedBoard[rowIndex+1][colIndex] = {type: 'vertical'};
@@ -81,6 +85,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile left in board and just update the board
           const updatedBoard = [...board];
           // Move the tile left
@@ -96,6 +101,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile right in board and just update the board
           const updatedBoard = [...board];
           // Move the tile right
@@ -110,6 +116,7 @@ export default function App() {
         if (rowIndex == 0 || board[rowIndex-1][colIndex]['type'] != 'empty' || board[rowIndex-1][colIndex+1]['type'] != 'empty'){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex-1][colIndex] = {type: 'horizontal'};
           updatedBoard[rowIndex-1][colIndex+1] = {type: 'h', pRow: rowIndex-1, pCol: colIndex};
@@ -122,6 +129,7 @@ export default function App() {
         if (rowIndex == 4 || board[rowIndex+1][colIndex]['type'] != 'empty' || board[rowIndex+1][colIndex+1]['type'] != 'empty'){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex][colIndex] = {type: 'empty'};
           updatedBoard[rowIndex][colIndex+1] = {type: 'empty'};
@@ -143,6 +151,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile left in board and just update the board
           const updatedBoard = [...board];
           // Move the tile left
@@ -157,6 +166,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile right in board and just update the board
           const updatedBoard = [...board];
           // Move the tile right
@@ -170,6 +180,7 @@ export default function App() {
         if (rowIndex == 0 || board[rowIndex-1][colIndex]['type'] != 'empty'){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex-1][colIndex] = {type: 'small'};
           updatedBoard[rowIndex][colIndex] = {type: 'empty'};
@@ -180,6 +191,7 @@ export default function App() {
         if (rowIndex == 4 || board[rowIndex+1][colIndex]['type'] != 'empty'){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex][colIndex] = {type: 'empty'};
           updatedBoard[rowIndex+1][colIndex] = {type: 'small'};
@@ -199,6 +211,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile left in board and just update the board
           const updatedBoard = [...board];
           // Move the tile left
@@ -217,6 +230,7 @@ export default function App() {
           return;
         }
         else {
+          setNumberOfMoves(numberOfMoves+1)
           // move the tile right in board and just update the board
           const updatedBoard = [...board];
           // Move the tile right
@@ -234,6 +248,7 @@ export default function App() {
         if (rowIndex == 0 || board[rowIndex-1][colIndex]['type'] != 'empty' || board[rowIndex-1][colIndex+1]['type'] != 'empty'){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex-1][colIndex] = {type: 'main'};
           updatedBoard[rowIndex-1][colIndex+1] = {type: 'm', pRow: rowIndex-1, pCol: colIndex};
@@ -248,6 +263,7 @@ export default function App() {
         if (rowIndex == 3 || board[rowIndex+2][colIndex]['type'] != 'empty' || board[rowIndex+2][colIndex+1]['type'] != 'empty' ){
           return;
         }else{
+          setNumberOfMoves(numberOfMoves+1)
           const updatedBoard = [...board];
           updatedBoard[rowIndex][colIndex] = {type: 'empty'};
           updatedBoard[rowIndex][colIndex+1] = {type: 'empty'};
@@ -262,11 +278,10 @@ export default function App() {
         break;
     }
   }
-
   
   const onTileSwipe = (tile, direction, rowIndex, colIndex) => {
     // Handle swipe direction for the tile at rowIndex and colIndex
-    console.log(`Tile at (${rowIndex}, ${colIndex}) swiped ${direction}`);
+    // console.log(`Tile at (${rowIndex}, ${colIndex}) swiped ${direction}`);
     // console.log(board)
     switch (tile.type) {
       case "vertical":
@@ -295,19 +310,72 @@ export default function App() {
     }
     // if we click verticle tile, 
   };
+  
+  const [mainTileSize, setMainTileSize] = useState(0);
+
+  const slideAnimation = useRef(new Animated.Value(0)).current;
+  const fadeAnimation = useRef(new Animated.Value(1)).current;
 
   const handleTilePress = (rowIndex, colIndex, isPress) => {
     // Logic for handling tile press goes here...
     console.log(rowIndex," ",colIndex," ",isPress, " ",board)
     // 
   };
+
+  useEffect(() => {
+    animateDownArrow();
+  }, []);
+
+  const animateDownArrow = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.parallel([
+          Animated.timing(fadeAnimation, {
+            toValue: 0,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(slideAnimation, {
+            toValue: 1,
+            duration: 2000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+        ]),
+        Animated.parallel([
+          Animated.timing(fadeAnimation, {
+            toValue: 1,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+          Animated.timing(slideAnimation, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+        ]),
+      ]),
+      { iterations: 3 }
+    ).start();
+  };
+
+  const interpolatedValue = slideAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 100], // Adjust the output range to control the slide distance
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.topRight}>
-        <Text style={{color:"#A1944F"}} >400</Text>
+        <Image source={require('./assets/likes.png')} style={{width:20, height:20, marginRight:2, marginBottom: 2}}/>
+        <Text style={{color:"#4F7752"}} >400</Text>
+      </View>
+      <View style={styles.bottomRight}>
+        <Image source={require('./assets/loves.png')} style={{width:20, height:20, marginRight:5, marginBottom: 12}}/>
       </View>
       <StatusBar hidden />
-      <View style={{flex:0, justifyContent:"center", alignItems:"center", paddingBottom:50}}>
+      <View style={{flex:0, justifyContent:"center", alignItems:"center", marginBottom:30}}>
         <Text style={{ 
           // fontFamily: 'Lato-Bold', 
           fontSize: 35,
@@ -317,18 +385,32 @@ export default function App() {
           // fontFamily: 'Lato-Bold', 
           fontSize: 12, 
           color: '#7A7A7A'}}>
-          Designed and Developed by <Image source={require('./assets/avatar.png')} style={{width: 18, height:18, opacity: 0.8, top:3}}/> Bharath Bandaru</Text>
+          Designed and Developed by <Image source={require('./assets/avatar.png')} style={{width: 18, height:18, opacity: 0.5, top:5}}/> Bharath Bandaru</Text>
       </View>
       <View style={styles.boardContainer}>
         <View style={styles.movesContainer}>
-          <Text style={styles.defaultText}>Moves: 0</Text>
+          <Image source={require('./assets/moves.png')} style={{width:20, height:20, marginRight:2, marginBottom: 5, marginLeft:5, alignSelf: 'center'}}/>
+          <Text style={[styles.defaultText,{alignSelf: 'center'}]}>{numberOfMoves}</Text>
         </View> 
         <View style={styles.moreContainer}>
-          <Text style={styles.defaultText}>More</Text>
+          <Image source={require('./assets/more.png')} style={{width:20, height:20, marginRight:5, marginBottom: 5}}/>
         </View>
-        <Board  board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} />
-        <Text style={styles.defaultText}> Bring the green block out!</Text>
+        <Board  board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} mainTileSize={mainTileSize} setMainTileSize={setMainTileSize}/>
+        <View style={{width: mainTileSize, height: 7, backgroundColor: '#59AE76'}}></View>
+        {/* <Image source={require('./assets/down.png')} style={{width:30, height:30, marginTop:2, marginBottom: 4}}/> */}
+        <View style={{ position: 'absolute', bottom: -30, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
+          <Animated.Image
+            source={require('./assets/down.png')}
+            style={{
+              opacity: fadeAnimation,
+              transform: [{ translateY: interpolatedValue }],
+              width: 30,
+              height: 30,
+            }}
+          />
+        </View>
       </View>
+      <Text style={[styles.defaultText, {paddingTop:25}]}> Bring the GREEN block out!</Text>
     </View>
   );
 }
@@ -338,14 +420,31 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     color:"#A1944F",
+    flex:1,
+    flexDirection:"row",
+    justifyContent: "center",
+    alignItems: "center",
     right: 0,
-    paddingRight: 20,
+    paddingRight: 10,
+    paddingTop: 15,
+    zIndex: 9999,
+  },
+  bottomRight: {
+    position: 'absolute',
+    bottom: 0,
+    color:"#A1944F",
+    flex:1,
+    flexDirection:"row",
+    justifyContent: "center",
+    alignItems: "center",
+    right: 0,
+    paddingRight: 10,
     paddingTop: 15,
     zIndex: 9999,
   },
   container: {
     flex: 1,
-    backgroundColor: '#191919',
+    backgroundColor: '#131313',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -355,6 +454,10 @@ const styles = StyleSheet.create({
   },
   movesContainer: {
     position: 'absolute',
+    flex:1,
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center",
     top: -20,
     left: 0,
     zIndex: 1,

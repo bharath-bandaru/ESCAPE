@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, PanResponder, Dimensions } from 'react-native';
 import VerticalTile from './tiles/VerticalTile';
 import MainTile from './tiles/MainTile';
@@ -6,7 +6,7 @@ import HorizontalTile from './tiles/HorizontalTile';
 import SmallTile from './tiles/SmallTile';
 import Swipe from 'react-native-swipe-gestures';
 
-const Board = ({ board, onTilePress, onTileSwipe }) => {
+const Board = ({ board, onTilePress, onTileSwipe, mainTileSize, setMainTileSize }) => {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -37,7 +37,9 @@ const Board = ({ board, onTilePress, onTileSwipe }) => {
     width = 408;
     tileWidth = 90;
   }
-
+  useEffect(() => {
+      setMainTileSize(tileWidth*2-10);
+    }, []);
   return (
     <View style={[styles.board]}>
       <View style={styles.gridContainer}>
@@ -115,9 +117,10 @@ const getTile = (tile, rowIndex, colIndex, tileWidth, width) => {
 const styles = StyleSheet.create({
   board: {
     padding: 10,
-    borderColor: '#43423C',
+    borderColor: '#252521',
     borderWidth: 14,
     maxWidth: 408,
+    marginTop:3,
   },
   gridContainer: {
     flexDirection: 'column',
