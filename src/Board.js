@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, PanResponder } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, PanResponder, Dimensions } from 'react-native';
 import VerticalTile from './tiles/VerticalTile';
 import MainTile from './tiles/MainTile';
 import HorizontalTile from './tiles/HorizontalTile';
@@ -31,15 +31,22 @@ const Board = ({ board, onTilePress, onTileSwipe }) => {
     })
   ).current;
 
+  let { width } = Dimensions.get('window');
+  let tileWidth = (width*90) / 412;
+  if (width > 408) {
+    width = 408;
+    tileWidth = 90;
+  }
+
   return (
-    <View style={styles.board}>
+    <View style={[styles.board]}>
       <View style={styles.gridContainer}>
         {board.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.rowContainer}>
             {row.map((tile, colIndex) => (
               <Swipe
                 key={colIndex}
-                style={styles.tileContainer}
+                style={[styles.tileContainer, { width: tileWidth, height: tileWidth }]}
                 onSwipeLeft={() =>
                   onTileSwipe(
                     tile,
@@ -79,7 +86,7 @@ const Board = ({ board, onTilePress, onTileSwipe }) => {
                   onPress={() => onTilePress(rowIndex, colIndex)}
                   {...panResponder.panHandlers}
                 >
-                  {tile.type !== 'empty' && getTile(tile, rowIndex, colIndex)}
+                  {tile.type !== 'empty' && getTile(tile, rowIndex, colIndex, tileWidth, width)}
                 </TouchableOpacity>
               </Swipe>
             ))}
@@ -90,16 +97,16 @@ const Board = ({ board, onTilePress, onTileSwipe }) => {
   );
 };
 
-const getTile = (tile, rowIndex, colIndex) => {
+const getTile = (tile, rowIndex, colIndex, tileWidth, width) => {
   switch (tile.type) {
     case 'vertical':
-      return <VerticalTile rowIndex={rowIndex} colIndex={colIndex} />;
+      return <VerticalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
     case 'horizontal':
-      return <HorizontalTile rowIndex={rowIndex} colIndex={colIndex} />;
+      return <HorizontalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
     case 'main':
-      return <MainTile rowIndex={rowIndex} colIndex={colIndex} />;
+      return <MainTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
     case 'small':
-      return <SmallTile rowIndex={rowIndex} colIndex={colIndex} />;
+      return <SmallTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
     default:
       return null;
   }
@@ -110,6 +117,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderColor: '#43423C',
     borderWidth: 14,
+    maxWidth: 408,
   },
   gridContainer: {
     flexDirection: 'column',
@@ -128,8 +136,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 111,
-    height: 90,
-    width: 90,
+    // height: 90,
   },
   tileContent: {
     position: 'absolute',

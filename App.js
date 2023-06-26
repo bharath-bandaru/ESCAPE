@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import Board from './src/Board';
-import BoxWithDraggableTile from './src/BoxWithDraggableTile';
-
+import EscapeImage from './assets/ESCAPE.svg'
+import AvatarImage from './assets/avatar.png'
 export default function App() {
   const [board, setBoard] = useState([
     [{ type: 'vertical' }, { type: 'main' }, { type: 'm',  pRow: 0, pCol: 1 }, { type: 'vertical' }],
@@ -267,6 +267,7 @@ export default function App() {
   const onTileSwipe = (tile, direction, rowIndex, colIndex) => {
     // Handle swipe direction for the tile at rowIndex and colIndex
     console.log(`Tile at (${rowIndex}, ${colIndex}) swiped ${direction}`);
+    // console.log(board)
     switch (tile.type) {
       case "vertical":
         updateVerticalTileOnSwipe(direction, rowIndex, colIndex);
@@ -302,16 +303,24 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      {/* show number of moves on the top left of the board */}
+      <View style={styles.topRight}>
+        <Text style={{color:"#A1944F"}} >400</Text>
+      </View>
+      <StatusBar hidden />
+      <View style={{flex:0, justifyContent:"center", alignItems:"center", paddingBottom:50}}>
+        <Text style={{ fontFamily: 'Lato-Bold', fontSize: 35,
+          fontWeight: '700', color: '#4F7752', letterSpacing: 18.225 }}>ESCAPE</Text>
+        <Text style={{ fontFamily: 'Lato-Bold', fontSize: 12, color: '#7A7A7A'}}>
+          Designed and Developed by <Image source={require('./assets/avatar.png')} style={{width: 18, height:18, opacity: 0.8, top:3}}/> Bharath Bandaru</Text>
+      </View>
       <View style={styles.boardContainer}>
         <View style={styles.movesContainer}>
           <Text style={styles.defaultText}>Moves: 0</Text>
-        </View>
+        </View> 
         <View style={styles.moreContainer}>
           <Text style={styles.defaultText}>More</Text>
         </View>
         <Board  board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} />
-        {/* <BoxWithDraggableTile/> */}
         <Text style={styles.defaultText}> Bring the green block out!</Text>
       </View>
     </View>
@@ -319,6 +328,15 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  topRight: {
+    position: 'absolute',
+    top: 0,
+    color:"#A1944F",
+    right: 0,
+    paddingRight: 20,
+    paddingTop: 15,
+    zIndex: 9999,
+  },
   container: {
     flex: 1,
     backgroundColor: '#191919',

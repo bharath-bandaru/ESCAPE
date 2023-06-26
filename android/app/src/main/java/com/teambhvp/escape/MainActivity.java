@@ -1,4 +1,4 @@
-package com.escape;
+package com.teambhvp.escape;
 
 import android.os.Build;
 import android.os.Bundle;

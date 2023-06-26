@@ -1,4 +1,4 @@
-package com.escape;
+package com.teambhvp.escape;
 
 import android.app.Application;
 import android.content.res.Configuration;
