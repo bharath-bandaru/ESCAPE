@@ -308,9 +308,15 @@ export default function App() {
       </View>
       <StatusBar hidden />
       <View style={{flex:0, justifyContent:"center", alignItems:"center", paddingBottom:50}}>
-        <Text style={{ fontFamily: 'Lato-Bold', fontSize: 35,
-          fontWeight: '700', color: '#4F7752', letterSpacing: 18.225 }}>ESCAPE</Text>
-        <Text style={{ fontFamily: 'Lato-Bold', fontSize: 12, color: '#7A7A7A'}}>
+        <Text style={{ 
+          // fontFamily: 'Lato-Bold', 
+          fontSize: 35,
+          fontWeight: '700', 
+          color: '#4F7752', letterSpacing: 18.225 }}>ESCAPE</Text>
+        <Text style={{ 
+          // fontFamily: 'Lato-Bold', 
+          fontSize: 12, 
+          color: '#7A7A7A'}}>
           Designed and Developed by <Image source={require('./assets/avatar.png')} style={{width: 18, height:18, opacity: 0.8, top:3}}/> Bharath Bandaru</Text>
       </View>
       <View style={styles.boardContainer}>

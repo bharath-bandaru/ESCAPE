@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.teambhvp.escape"
+    namespace "com.bhvp.escape"
     defaultConfig {
-        applicationId "com.teambhvp.escape"
+        applicationId "com.bhvp.escape"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
