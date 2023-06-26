@@ -398,7 +398,7 @@ export default function App() {
         <Board  board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} mainTileSize={mainTileSize} setMainTileSize={setMainTileSize}/>
         <View style={{width: mainTileSize, height: 7, backgroundColor: '#59AE76'}}></View>
         {/* <Image source={require('./assets/down.png')} style={{width:30, height:30, marginTop:2, marginBottom: 4}}/> */}
-        <View style={{ position: 'absolute', bottom: -30, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ position: 'absolute', bottom: -50, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
           <Animated.Image
             source={require('./assets/down.png')}
             style={{
@@ -410,7 +410,7 @@ export default function App() {
           />
         </View>
       </View>
-      <Text style={[styles.defaultText, {paddingTop:25}]}> Bring the GREEN block out!</Text>
+      <Text style={[styles.defaultText, {paddingTop:5}]}> Bring the GREEN block out!</Text>
     </View>
   );
 }
