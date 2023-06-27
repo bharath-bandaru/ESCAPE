@@ -368,37 +368,40 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.topRight}>
-        <Image source={require('./assets/likes.png')} style={{width:20, height:20, marginRight:2, marginBottom: 2}}/>
-        <Text style={{color:"#4F7752"}} >400</Text>
+        <Image source={require('./assets/likes.png')} style={{width:20, height:20, marginRight:2}}/>
+        <Text style={{color:"#4F7752"}} >3000</Text>
       </View>
       <View style={styles.bottomRight}>
         <Image source={require('./assets/loves.png')} style={{width:20, height:20, marginRight:5, marginBottom: 12}}/>
       </View>
       <StatusBar hidden />
-      <View style={{flex:0, justifyContent:"center", alignItems:"center", marginBottom:30}}>
+      <View style={{justifyContent:"center", alignItems:"center", marginBottom:30}}>
         <Text style={{ 
           // fontFamily: 'Lato-Bold', 
-          fontSize: 35,
-          fontWeight: '700', 
+          fontSize: 35, alignItems:"center", justifyContent:"center",
+          fontWeight: '700', marginLeft: 20,
           color: '#4F7752', letterSpacing: 18.225 }}>ESCAPE</Text>
-        <Text style={{ 
-          // fontFamily: 'Lato-Bold', 
-          fontSize: 12, 
-          color: '#7A7A7A'}}>
-          Designed and Developed by <Image source={require('./assets/avatar.png')} style={{width: 18, height:18, opacity: 0.5, top:5}}/> Bharath Bandaru</Text>
+          <View style={{justifyContent:"center", alignItems:"center", display:"flex"}}>
+            <Text style={{ 
+              // fontFamily: 'Lato-Bold', 
+              fontSize: 12, justifyContent:"center", alignItems:"center", display:"flex",
+              color: '#7A7A7A'}}>
+              Designed and Developed by Bharath Bandaru</Text>
+              {/* <Image source={require('./assets/avatar2.png')} style={{width: 18, height:23.02, opacity: 0.5}}/>  */}
+          </View>
       </View>
       <View style={styles.boardContainer}>
         <View style={styles.movesContainer}>
-          <Image source={require('./assets/moves.png')} style={{width:20, height:20, marginRight:2, marginBottom: 5, marginLeft:5, alignSelf: 'center'}}/>
+          <Image source={require('./assets/moves.png')} style={{width:20, height:20, marginRight:2, marginLeft:5, alignSelf: 'center'}}/>
           <Text style={[styles.defaultText,{alignSelf: 'center'}]}>{numberOfMoves}</Text>
         </View> 
         <View style={styles.moreContainer}>
           <Image source={require('./assets/more.png')} style={{width:20, height:20, marginRight:5, marginBottom: 5}}/>
         </View>
-        <Board  board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} mainTileSize={mainTileSize} setMainTileSize={setMainTileSize}/>
-        <View style={{width: mainTileSize, height: 7, backgroundColor: '#59AE76'}}></View>
+        <Board board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} mainTileSize={mainTileSize} setMainTileSize={setMainTileSize}/>
+        <View style={{width: mainTileSize, height: 14, backgroundColor: '#4F7752', marginTop: -14}}></View>
         {/* <Image source={require('./assets/down.png')} style={{width:30, height:30, marginTop:2, marginBottom: 4}}/> */}
-        <View style={{ position: 'absolute', bottom: -50, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ position: 'absolute', bottom: -47, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>
           <Animated.Image
             source={require('./assets/down.png')}
             style={{

@@ -32,16 +32,16 @@ const Board = ({ board, onTilePress, onTileSwipe, mainTileSize, setMainTileSize 
   ).current;
 
   let { width } = Dimensions.get('window');
-  let tileWidth = (width*90) / 412;
+  let tileWidth = (width*86.5) / 414;
   if (width > 408) {
     width = 408;
-    tileWidth = 90;
+    tileWidth = 86.5;
   }
   useEffect(() => {
       setMainTileSize(tileWidth*2-10);
     }, []);
   return (
-    <View style={[styles.board]}>
+    <View style={[styles.board, {width: width-15}]}>
       <View style={styles.gridContainer}>
         {board.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.rowContainer}>
