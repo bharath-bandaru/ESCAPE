@@ -12,6 +12,13 @@ export default function App() {
     [{ type: 'vertical' }, { type: 'small'}, { type: 'small'}, { type: 'vertical' }],
     [{ type: 'v', pRow: 3, pCol: 0 }, {type: 'small' }, { type: 'small' }, { type: 'v', pRow: 3, pCol: 3 }]
   ]);
+  const [swipeData, setSwipeData] = useState([
+    [{ swipe: '' }, { swipe: '' }, { swipe: '' }, { swipe: '' }],
+    [{ swipe: '' }, { swipe: '' }, { swipe: '' }, { swipe: '' }],
+    [{ swipe: '' }, { swipe: '' }, { swipe: '' }, { swipe: '' }],
+    [{ swipe: '' }, { swipe: '' }, { swipe: '' }, { swipe: '' }],
+    [{ swipe: '' }, { swipe: '' }, { swipe: '' }, { swipe: '' }]
+  ])
   const [numberOfMoves, setNumberOfMoves] = useState(0)
   const updateVerticalTileOnSwipe = (direction, rowIndex, colIndex) => {
     // This method takes care of vertical tile
@@ -21,15 +28,24 @@ export default function App() {
           return;
         } else {
           setNumberOfMoves(numberOfMoves+1)
-          // move the tile left in board and just update the board
-          const updatedBoard = [...board];
-          // Move the tile left
-          updatedBoard[rowIndex][colIndex] = {type: 'empty'};
-          updatedBoard[rowIndex+1][colIndex] = {type: 'empty'};
-          updatedBoard[rowIndex][colIndex-1] = {type: 'vertical'};
-          updatedBoard[rowIndex+1][colIndex-1] = {type: 'v', pRow: rowIndex, pCol: colIndex-1};;
-          // Update the state with the new board
-          setBoard(updatedBoard);
+          const updatedSwipeData = [...swipeData];
+          updatedSwipeData[rowIndex][colIndex] = {swipe: 'left'};
+          setSwipeData(updatedSwipeData);
+
+          // update the board after 100 milliseconds
+          setTimeout(() => {
+            const updatedBoard = [...board];
+            // Move the tile left
+            updatedBoard[rowIndex][colIndex] = {type: 'empty'};
+            updatedBoard[rowIndex+1][colIndex] = {type: 'empty'};
+            updatedBoard[rowIndex][colIndex-1] = {type: 'vertical'};
+            updatedBoard[rowIndex+1][colIndex-1] = {type: 'v', pRow: rowIndex, pCol: colIndex-1};
+            const updatedSwipeData = [...swipeData];
+            updatedSwipeData[rowIndex][colIndex] = {swipe: ''};
+            setSwipeData(updatedSwipeData);
+            // Update the state with the new board
+            setBoard(updatedBoard);
+          }, 0);
         }
         break;
       case "right":
@@ -40,10 +56,10 @@ export default function App() {
           // move the tile right in board and just update the board
           const updatedBoard = [...board];
           // Move the tile right
-          updatedBoard[rowIndex][colIndex] = {type: 'empty'};
+          updatedBoard[rowIndex][colIndex] = {type: 'empty'};;
           updatedBoard[rowIndex+1][colIndex] = {type: 'empty'};
           updatedBoard[rowIndex][colIndex+1] = {type: 'vertical'};
-          updatedBoard[rowIndex+1][colIndex+1] = {type: 'v', pRow: rowIndex, pCol: colIndex+1};;
+          updatedBoard[rowIndex+1][colIndex+1] = {type: 'v', pRow: rowIndex, pCol: colIndex+1};
           // Update the state with the new board
           setBoard(updatedBoard);
         } 
@@ -53,11 +69,24 @@ export default function App() {
           return;
         }else{
           setNumberOfMoves(numberOfMoves+1)
-          const updatedBoard = [...board];
-          updatedBoard[rowIndex-1][colIndex] = {type: 'vertical'};
-          updatedBoard[rowIndex][colIndex] = {type: 'v', pRow: rowIndex-1, pCol: colIndex};
-          updatedBoard[rowIndex+1][colIndex] = {type: 'empty'};
-          setBoard(updatedBoard);
+          const updatedSwipeData = [...swipeData];
+          updatedSwipeData[rowIndex][colIndex] = {swipe: 'up'};
+          setSwipeData(updatedSwipeData);
+          // update the board after 100 milliseconds
+          setTimeout(() => {
+            const updatedBoard = [...board];
+            // Move the tile up
+            updatedBoard[rowIndex-1][colIndex] = {type: 'vertical'};
+            updatedBoard[rowIndex][colIndex] = {type: 'v', pRow: rowIndex-1, pCol: colIndex};
+            updatedBoard[rowIndex+1][colIndex] = {type: 'empty'};
+            setBoard(updatedBoard);
+            const updatedSwipeData = [...swipeData];
+            updatedSwipeData[rowIndex][colIndex] = {swipe: ''};
+            setSwipeData(updatedSwipeData);
+            // Update the state with the new board
+            setBoard(updatedBoard);
+          }, 0);
+          
         }
         break;
       case "down":
@@ -319,7 +348,7 @@ export default function App() {
   const handleTilePress = (rowIndex, colIndex, isPress) => {
     // Logic for handling tile press goes here...
     console.log(rowIndex," ",colIndex," ",isPress, " ",board)
-    // 
+    // check if there is only one side to move
   };
 
   useEffect(() => {
@@ -398,7 +427,7 @@ export default function App() {
         <View style={styles.moreContainer}>
           <Image source={require('./assets/more.png')} style={{width:20, height:20, marginRight:5, marginBottom: 5}}/>
         </View>
-        <Board board = {board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} mainTileSize={mainTileSize} setMainTileSize={setMainTileSize}/>
+        <Board board={board} onTilePress={handleTilePress} onTileSwipe={onTileSwipe} setMainTileSize={setMainTileSize} swipeData={swipeData}/>
         <View style={{width: mainTileSize, height: 14, backgroundColor: '#4F7752', marginTop: -14}}></View>
         {/* <Image source={require('./assets/down.png')} style={{width:30, height:30, marginTop:2, marginBottom: 4}}/> */}
         <View style={{ position: 'absolute', bottom: -47, left: 0, right: 0, justifyContent: 'center', alignItems: 'center'}}>

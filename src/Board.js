@@ -6,7 +6,7 @@ import HorizontalTile from './tiles/HorizontalTile';
 import SmallTile from './tiles/SmallTile';
 import Swipe from 'react-native-swipe-gestures';
 
-const Board = ({ board, onTilePress, onTileSwipe, mainTileSize, setMainTileSize }) => {
+const Board = ({ board, onTilePress, onTileSwipe, setMainTileSize, swipeData }) => {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -88,7 +88,7 @@ const Board = ({ board, onTilePress, onTileSwipe, mainTileSize, setMainTileSize 
                   onPress={() => onTilePress(rowIndex, colIndex)}
                   {...panResponder.panHandlers}
                 >
-                  {tile.type !== 'empty' && getTile(tile, rowIndex, colIndex, tileWidth, width)}
+                  {tile.type !== 'empty' && getTile(tile, rowIndex, colIndex, tileWidth, width, swipeData[rowIndex][colIndex], onTilePress)}
                 </TouchableOpacity>
               </Swipe>
             ))}
@@ -99,16 +99,16 @@ const Board = ({ board, onTilePress, onTileSwipe, mainTileSize, setMainTileSize 
   );
 };
 
-const getTile = (tile, rowIndex, colIndex, tileWidth, width) => {
+const getTile = (tile, rowIndex, colIndex, tileWidth, width, swipeDirection, onTilePress) => {
   switch (tile.type) {
     case 'vertical':
-      return <VerticalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
+      return <VerticalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width} swipe={swipeDirection} onTilePress={onTilePress}/>;
     case 'horizontal':
-      return <HorizontalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
+      return <HorizontalTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width} onTilePress={onTilePress}/>;
     case 'main':
-      return <MainTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
+      return <MainTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width} onTilePress={onTilePress}/>;
     case 'small':
-      return <SmallTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width}/>;
+      return <SmallTile rowIndex={rowIndex} colIndex={colIndex} tileWidth = {tileWidth} width={width} onTilePress={onTilePress}/>;
     default:
       return null;
   }

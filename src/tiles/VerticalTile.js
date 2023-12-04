@@ -1,19 +1,33 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 
 const VerticalTile = (props) => {
-  // console.log("vert",{width: props.tileWidth-10,height: props.tileWidth*2-10})
-  // console.log("board width",props.width)
   const handlePress = () => {
     console.log('Vertical pressed!');
+    props.onTilePress(props.rowIndex,props.colIndex)
   };
 
+  const slideUpAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    console.log(props.swipe)
+    if (props.swipe === 'up') {
+      Animated.timing(slideUpAnim, {
+        toValue: -props.tileWidth,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [props.swipe]);
+
   return (
-     <View onPress={handlePress}>
-        <View style={[styles.box1, {width: props.tileWidth-10,height: props.tileWidth*2-10}]}>
+    <Animated.View style={{ transform: [{ translateY: slideUpAnim }] }}>
+      <TouchableOpacity activeOpacity={1} onPress={handlePress}>
+        <View style={[styles.box1, { width: props.tileWidth - 10, height: props.tileWidth * 2 - 10 }]}>
           <View style={styles.circle} />
         </View>
-    </View>
+      </TouchableOpacity>
+    </Animated.View>
   );
 };
 
@@ -21,10 +35,8 @@ export default VerticalTile;
 
 const styles = StyleSheet.create({
   box1: {
-    // width: 80,
-    // height: 170,
     margin: 5,
-    zIndex:9,
+    zIndex: 9,
     backgroundColor: '#403B22',
     justifyContent: 'center',
     alignItems: 'center',
@@ -37,3 +49,4 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 });
+
